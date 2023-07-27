@@ -12,8 +12,8 @@ def getClients(self):
     for client in f_sql_get("SELECT * FROM [client]"):
         clients.append({
             'id': client.id,
-            'code': client.code,
             'name': client.name,
+            'code': client.code,
             'city': client.city
         })
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useToken } from './useToken';
+import { ExportToExcel } from './ExportToExcel'
 
 const API = process.env.REACT_APP_API;
 
@@ -14,6 +15,7 @@ export const Clients = () => {
     const [id, setId] = useState('')
 
     const [clients, setClients] = useState([])
+    const fileName = "clientes";
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -66,7 +68,13 @@ export const Clients = () => {
             }
         })
         const data = await response.json()
-        setClients(data)
+        const customHeadings = data.map(client => ({
+            'id': client.id,
+            'name': client.name,
+            'code': client.code,
+            'city': client.city
+        }))
+        setClients(customHeadings)
     }
 
     useEffect(() => {
@@ -107,7 +115,12 @@ export const Clients = () => {
 
     return (
         <div className="row">
-            <div className="col-md-4 mb-5">
+            <ol className="breadcrumb">
+                <li className="breadcrumb-item">Dashboard</li>
+                <li className="breadcrumb-item active">Clientes</li>
+            </ol>
+            <hr></hr>
+            <div className="col-md-4 mb-5 mt-3">
                 <form onSubmit={handleSubmit} className="card card-body">
                     <div className="form-group mb-3">
                         <input
@@ -142,7 +155,10 @@ export const Clients = () => {
                     </button>
                 </form>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-8 mt-3">
+                <div className="mb-3">
+                    <ExportToExcel apiData={clients} fileName={fileName} />
+                </div>
                 <table className="table table-striped">
                     <thead>
                         <tr>
