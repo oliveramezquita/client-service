@@ -50,7 +50,7 @@ def login():
     if check_password_hash(user['password'], auth['password']):
         token = jwt.encode({
             'public_id': user['id'],
-            'exp': datetime.utcnow() + timedelta(minutes=30)
+            'exp': datetime.utcnow() + timedelta(minutes=300)
         }, app.config['SECRET_KEY'])
 
         return make_response(jsonify({'token': token.decode('UTF-8')}), 201)

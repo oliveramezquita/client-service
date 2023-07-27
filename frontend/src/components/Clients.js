@@ -15,6 +15,7 @@ export const Clients = () => {
     const [id, setId] = useState('')
 
     const [clients, setClients] = useState([])
+    const [cities, setCities] = useState([])
     const fileName = "clientes";
 
     const handleSubmit = async (e) => {
@@ -77,8 +78,19 @@ export const Clients = () => {
         setClients(customHeadings)
     }
 
+    const getCities = async () => {
+        const response = await fetch(`${API}/cities`, {
+            headers: {
+                'x-access-token': token
+            }
+        })
+        const data = await response.json()
+        setCities(data)
+    }
+
     useEffect(() => {
         getClients();
+        getCities();
     }, [])
 
     const deleteClient = async (id) => {
@@ -149,6 +161,17 @@ export const Clients = () => {
                             className="form-control"
                             placeholder="Ciudad"
                         />
+                        <div className="form-group">
+                            <label htmlFor="ciudad" className="form-label mt-4">
+                                Ciudad
+                            </label>
+                            <select className="form-select" id="ciudad">
+                                {cities.map((city) => (
+                                    <option value={city.id}>{city.name}</option>
+                                ))}
+                            </select>
+                        </div>
+
                     </div>
                     <button className="btn btn-primary btn-block">
                         {editing ? 'Actualizar' : 'Crear'}
