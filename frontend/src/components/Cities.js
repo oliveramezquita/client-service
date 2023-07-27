@@ -25,8 +25,8 @@ export const Cities = () => {
                     'x-access-token': token
                 },
                 body: JSON.stringify({
-                    name: name,
-                    code: code
+                    code: code,
+                    name: name
                 })
             })
             const data = await response.json();
@@ -39,8 +39,8 @@ export const Cities = () => {
                     'x-access-token': token
                 },
                 body: JSON.stringify({
-                    name: name,
-                    code: code
+                    code: code,
+                    name: name
                 })
             })
             const data = await response.json();
@@ -102,7 +102,12 @@ export const Cities = () => {
 
     return (
         <div className="row">
-            <div className="col-md-4 mb-5">
+            <ol className="breadcrumb">
+                <li className="breadcrumb-item">Dashboard</li>
+                <li className="breadcrumb-item active">Ciudades</li>
+            </ol>
+            <hr></hr>
+            <div className="col-md-4 mb-5 mt-3">
                 <form onSubmit={handleSubmit} className="card card-body">
                     <div className="form-group mb-3">
                         <input

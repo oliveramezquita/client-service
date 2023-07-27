@@ -9,12 +9,29 @@ client_file = Blueprint('client', __name__)
 @token_required
 def getClients(self):
     clients = []
-    for client in f_sql_get("SELECT * FROM [client]"):
+    for client in f_sql_get("SELECT cl.id, cl.name, cl.code, cl.city, ci.name AS city_name FROM [client] cl LEFT JOIN [city] AS ci ON ci.id = cl.city "):
         clients.append({
             'id': client.id,
             'name': client.name,
             'code': client.code,
-            'city': client.city
+            'city': client.city,
+            'city_name': client.city_name
+        })
+
+    return jsonify(clients)
+
+
+@client_file.route('/clients/<city>', methods=['GET'])
+@token_required
+def getClientsByCity(self, city):
+    clients = []
+    for client in f_sql_get("SELECT cl.id, cl.name, cl.code, cl.city, ci.name AS city_name FROM [client] cl LEFT JOIN [city] AS ci ON ci.id = cl.city WHERE cl.city = (%s)" % city):
+        clients.append({
+            'id': client.id,
+            'name': client.name,
+            'code': client.code,
+            'city': client.city,
+            'city_name': client.city_name
         })
 
     return jsonify(clients)

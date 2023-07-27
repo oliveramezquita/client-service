@@ -47,8 +47,7 @@ export const Users = () => {
                 body: JSON.stringify({
                     name: name,
                     last_name: last_name,
-                    email: email,
-                    password: password
+                    email: email
                 })
             })
             const data = await response.json();
@@ -109,12 +108,16 @@ export const Users = () => {
         setName(data.name)
         setLastName(data.last_name)
         setEmail(data.email)
-        setPassword(data.password)
     }
 
     return (
         <div className="row">
-            <div className="col-md-4 mb-5">
+            <ol className="breadcrumb">
+                <li className="breadcrumb-item">Dashboard</li>
+                <li className="breadcrumb-item active">Usuarios</li>
+            </ol>
+            <hr></hr>
+            <div className="col-md-4 mb-5 mt-3">
                 <form onSubmit={handleSubmit} className="card card-body">
                     <div className="form-group mb-3">
                         <input
@@ -148,7 +151,8 @@ export const Users = () => {
                         <input
                             type="password"
                             onChange={e => setPassword(e.target.value)}
-                            value={password}
+                            value={editing ? '' : password}
+                            disabled={editing ? true : false}
                             className="form-control"
                             placeholder="Contraseña"
                         />

@@ -459,6 +459,32 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get clients by city",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8001/clients/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"clients",
+								"2"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -478,21 +504,16 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "email",
-							"value": "root@correo.com",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "password",
-							"type": "text"
-						}
-					]
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"administrator@correo.com\",\n    \"password\": \"password\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8001/login",

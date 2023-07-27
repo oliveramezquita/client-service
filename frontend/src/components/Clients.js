@@ -10,6 +10,7 @@ export const Clients = () => {
     const [name, setName] = useState('')
     const [code, setCode] = useState('')
     const [city, setCity] = useState('')
+    const [filterCity, setFilterCity] = useState('')
 
     const [editing, setEditing] = useState(false)
     const [id, setId] = useState('')
@@ -29,8 +30,8 @@ export const Clients = () => {
                     'x-access-token': token
                 },
                 body: JSON.stringify({
-                    name: name,
                     code: code,
+                    name: name,
                     city: city
                 })
             })
@@ -44,8 +45,8 @@ export const Clients = () => {
                     'x-access-token': token
                 },
                 body: JSON.stringify({
-                    name: name,
                     code: code,
+                    name: name,
                     city: city,
                 })
             })
@@ -73,7 +74,23 @@ export const Clients = () => {
             'id': client.id,
             'name': client.name,
             'code': client.code,
-            'city': client.city
+            'city': client.city_name
+        }))
+        setClients(customHeadings)
+    }
+
+    const getClientsByCity = async (city) => {
+        const response = await fetch(`${API}/clients/${city}`, {
+            headers: {
+                'x-access-token': token
+            }
+        })
+        const data = await response.json()
+        const customHeadings = data.map(client => ({
+            'id': client.id,
+            'name': client.name,
+            'code': client.code,
+            'city': client.city_name
         }))
         setClients(customHeadings)
     }
@@ -125,6 +142,14 @@ export const Clients = () => {
         setCity(data.city)
     }
 
+    const filterByCity = async (city) => {
+        if (city > 0)
+            getClientsByCity(city)
+        else
+            getClients()
+        setFilterCity(city)
+    }
+
     return (
         <div className="row">
             <ol className="breadcrumb">
@@ -154,24 +179,17 @@ export const Clients = () => {
                         />
                     </div>
                     <div className="form-group mb-3">
-                        <input
-                            type="text"
-                            onChange={e => setCity(e.target.value)}
-                            value={city}
-                            className="form-control"
-                            placeholder="Ciudad"
-                        />
                         <div className="form-group">
                             <label htmlFor="ciudad" className="form-label mt-4">
                                 Ciudad
                             </label>
-                            <select className="form-select" id="ciudad">
-                                {cities.map((city) => (
-                                    <option value={city.id}>{city.name}</option>
+                            <select value={city} className="form-select" id="ciudad" onChange={e => setCity(e.target.value)}>
+                                <option>Selecciones una ciudad</option>
+                                {cities.map((item) => (
+                                    <option key={item.id} value={item.id} selected={city == item.id}>{item.name}</option>
                                 ))}
                             </select>
                         </div>
-
                     </div>
                     <button className="btn btn-primary btn-block">
                         {editing ? 'Actualizar' : 'Crear'}
@@ -179,8 +197,23 @@ export const Clients = () => {
                 </form>
             </div>
             <div className="col-md-8 mt-3">
-                <div className="mb-3">
-                    <ExportToExcel apiData={clients} fileName={fileName} />
+                <div className="d-flex justify-content-between">
+                    <div className="form-group mb-3 col-md-4 col-sm-5 d-inline-flex">
+                        <div className="form-group col-12">
+                            <label htmlFor="filtrar_ciudad" className="form-label mt-4">
+                                Filtrar por ciudad
+                            </label>
+                            <select value={filterCity} className="form-select" id="filtrar_ciudad" onChange={e => filterByCity(e.target.value)}>
+                                <option key={0} value={0} selected={filterCity == 0}>Todas</option>
+                                {cities.map((item) => (
+                                    <option key={item.id} value={item.id} selected={filterCity == item.id}>{item.name}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                    <div className="mb-3">
+                        <ExportToExcel apiData={clients} fileName={fileName} />
+                    </div>
                 </div>
                 <table className="table table-striped">
                     <thead>
