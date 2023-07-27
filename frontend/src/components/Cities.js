@@ -3,25 +3,22 @@ import { useToken } from './useToken';
 
 const API = process.env.REACT_APP_API;
 
-export const Users = () => {
+export const Cities = () => {
     const { token, setToken } = useToken();
 
     const [name, setName] = useState('')
-    const [last_name, setLastName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [photo, setPhoto] = useState('')
+    const [code, setCode] = useState('')
 
     const [editing, setEditing] = useState(false)
     const [id, setId] = useState('')
 
-    const [users, setUsers] = useState([])
+    const [cities, setCities] = useState([])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!editing) {
-            const response = await fetch(`${API}/user`, {
+            const response = await fetch(`${API}/city`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -29,16 +26,13 @@ export const Users = () => {
                 },
                 body: JSON.stringify({
                     name: name,
-                    last_name: last_name,
-                    email: email,
-                    password: password,
-                    photo: photo
+                    code: code
                 })
             })
             const data = await response.json();
             console.log(data)
         } else {
-            const response = await fetch(`${API}/user/${id}`, {
+            const response = await fetch(`${API}/city/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -46,9 +40,7 @@ export const Users = () => {
                 },
                 body: JSON.stringify({
                     name: name,
-                    last_name: last_name,
-                    email: email,
-                    password: password
+                    code: code
                 })
             })
             const data = await response.json();
@@ -57,32 +49,30 @@ export const Users = () => {
             setId('');
         }
 
-        await getUsers();
+        await getCities();
 
         setName('');
-        setLastName('');
-        setEmail('');
-        setPassword('');
+        setCode('');
     }
 
-    const getUsers = async () => {
-        const response = await fetch(`${API}/users`, {
+    const getCities = async () => {
+        const response = await fetch(`${API}/cities`, {
             headers: {
                 'x-access-token': token
             }
         })
         const data = await response.json()
-        setUsers(data)
+        setCities(data)
     }
 
     useEffect(() => {
-        getUsers();
+        getCities();
     }, [])
 
-    const deleteUser = async (id) => {
-        const userResponse = window.confirm('¿Estas seguro de querer eliminar el usuario?')
+    const deleteCity = async (id) => {
+        const userResponse = window.confirm('¿Estas seguro de querer eliminar la ciudad?')
         if (userResponse) {
-            const response = await fetch(`${API}/user/${id}`, {
+            const response = await fetch(`${API}/city/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'x-access-token': token
@@ -90,12 +80,12 @@ export const Users = () => {
             });
             const data = await response.json();
             console.log(data);
-            await getUsers();
+            await getCities();
         }
     }
 
-    const updateUser = async (id) => {
-        const response = await fetch(`${API}/user/${id}`, {
+    const updateCity = async (id) => {
+        const response = await fetch(`${API}/city/${id}`, {
             headers: {
                 'x-access-token': token
             }
@@ -107,9 +97,7 @@ export const Users = () => {
         setId(id);
 
         setName(data.name)
-        setLastName(data.last_name)
-        setEmail(data.email)
-        setPassword(data.password)
+        setCode(data.code)
     }
 
     return (
@@ -129,31 +117,12 @@ export const Users = () => {
                     <div className="form-group mb-3">
                         <input
                             type="text"
-                            onChange={e => setLastName(e.target.value)}
-                            value={last_name}
+                            onChange={e => setCode(e.target.value)}
+                            value={code}
                             className="form-control"
-                            placeholder="Apellidos"
+                            placeholder="Código"
                         />
                     </div>
-                    <div className="form-group mb-3">
-                        <input
-                            type="text"
-                            onChange={e => setEmail(e.target.value)}
-                            value={email}
-                            className="form-control"
-                            placeholder="Correo electrónico"
-                        />
-                    </div>
-                    <div className="form-group mb-3">
-                        <input
-                            type="password"
-                            onChange={e => setPassword(e.target.value)}
-                            value={password}
-                            className="form-control"
-                            placeholder="Contraseña"
-                        />
-                    </div>
-                    <input type="hidden" value={photo} />
                     <button className="btn btn-primary btn-block">
                         {editing ? 'Actualizar' : 'Crear'}
                     </button>
@@ -164,28 +133,26 @@ export const Users = () => {
                     <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Apellidos</th>
-                            <th>Correo electrónico</th>
+                            <th>Código</th>
                             <th>...</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map(user => (
-                            <tr key={user.id}>
-                                <td>{user.name}</td>
-                                <td>{user.last_name}</td>
-                                <td>{user.email}</td>
+                        {cities.map(city => (
+                            <tr key={city.id}>
+                                <td>{city.name}</td>
+                                <td>{city.code}</td>
                                 <td>
                                     <button
                                         className="btn btn-secondary btn-sm btn-block"
-                                        onClick={(e) => updateUser(user.id)}
+                                        onClick={(e) => updateCity(city.id)}
                                     >
                                         Editar
                                     </button>
                                     &nbsp;
                                     <button
                                         className="btn btn-danger btn-sm btn-block"
-                                        onClick={(e) => deleteUser(user.id)}
+                                        onClick={(e) => deleteCity(city.id)}
                                     >
                                         Eliminar
                                     </button>

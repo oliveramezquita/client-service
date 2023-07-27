@@ -26,11 +26,28 @@ export const Navbar = () => (
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link active" aria-current="page" to="/users">
+                        <Link className="nav-link" aria-current="page" to="/users">
                             Usuarios
                         </Link>
                     </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" aria-current="page" to="/clients">
+                            Clientes
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" aria-current="page" to="/cities">
+                            Ciudades
+                        </Link>
+                    </li>
                 </ul>
+                <div className="d-flex">
+                    <a className="icon-link" href="#">
+                        Salir&nbsp;
+                    </a>
+                    <label>&nbsp;</label>
+                </div>
+
             </div>
         </div>
     </nav>

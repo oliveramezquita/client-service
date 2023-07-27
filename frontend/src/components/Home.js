@@ -6,8 +6,8 @@ export const Home = () => (
         <h2>Dashboard</h2>
         <ul>
             <li><Link to="/users">Usuarios</Link></li>
-            <li>Clientes</li>
-            <li>Ciudades</li>
+            <li><Link to="/clients">Clientes</Link></li>
+            <li><Link to="/cities">Ciudades</Link></li>
         </ul>
     </Fragment>
 )
