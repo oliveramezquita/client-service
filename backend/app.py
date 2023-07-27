@@ -1,68 +1,65 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS
-from database import f_sql_insert, f_sql_get, f_sql_delete, f_sql_update
+from werkzeug.security import check_password_hash
+from datetime import datetime, timedelta
+from decouple import config
+from entities.user import user_file
+from entities.city import city_file
+from entities.client import client_file
+from database import f_sql_get
+
+import jwt
 
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = config('SECRET_KEY')
+
 CORS(app)
 
-
-@app.route('/user', methods=['POST'])
-def createUser():
-    dataset = request.json
-    sqlList = (", ".join(["'"+str(item)+"'" for item in dataset.values()]))
-    sqlList = sqlList.replace("'None'", "NULL")
-    id = f_sql_insert("INSERT INTO [user] VALUES (%s)" % (sqlList))
-
-    return jsonify(str(id))
+app.register_blueprint(user_file)
+app.register_blueprint(city_file)
+app.register_blueprint(client_file)
 
 
-@app.route('/users', methods=['GET'])
-def getUsers():
-    users = []
-    for user in f_sql_get("SELECT * FROM [user]"):
-        users.append({
-            'id': user.id,
-            'name': user.name,
-            'last_name': user.last_name,
-            'email': user.email,
-            'photo': user.photo
-        })
+@app.route('/login', methods=['POST'])
+def login():
+    auth = request.form
 
-    return jsonify(users)
+    if not auth or not auth.get('email') or not auth.get('password'):
+        return make_response(
+            'Could not verify',
+            401,
+            {'WWW-Authenticate': 'Basic realm ="Login required !!"'}
+        )
 
-
-@app.route('/user/<id>', methods=['GET'])
-def getUser(id):
     user = {}
-    for user in f_sql_get("SELECT * FROM [user] WHERE id = " + id):
+    for item in f_sql_get(f"SELECT * FROM [user] WHERE email = '{auth.get('email')}'"):
         user = {
-            'id': user.id,
-            'name': user.name,
-            'last_name': user.last_name,
-            'email': user.email,
-            'password': user.password,
-            'photo': user.photo
+            'id': item.id,
+            'email': item.email,
+            'password': item.password
         }
 
-    return jsonify(user)
+    if not user:
+        return make_response(
+            'Could not verify',
+            401,
+            {'WWW-Authenticate': 'Basic realm ="User does not exist !!"'}
+        )
 
+    if check_password_hash(user['password'], auth.get('password')):
+        token = jwt.encode({
+            'public_id': user['id'],
+            'exp': datetime.utcnow() + timedelta(minutes=30)
+        }, app.config['SECRET_KEY'])
 
-@app.route('/user/<id>', methods=['DELETE'])
-def deleteUser(id):
-    f_sql_delete('user', id)
+        return make_response(jsonify({'token': token.decode('UTF-8')}), 201)
 
-    return jsonify({'msg': 'User deleted'})
-
-
-@app.route('/user/<id>', methods=['PUT'])
-def updateUser(id):
-    dataset = request.json
-    sqlList = (", ".join([str(key)+" = '"+str(item) +
-               "'" for key, item in dataset.items()]))
-    f_sql_update(f"UPDATE [user] SET {sqlList} WHERE id = {id}")
-
-    return jsonify({'msg': 'User updated'})
+    return make_response(
+        'Could not verify',
+        403,
+        {'WWW-Authenticate': 'Basic realm ="Wrong Password !!"'}
+    )
 
 
 if __name__ == "__main__":
