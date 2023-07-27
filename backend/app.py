@@ -23,9 +23,9 @@ app.register_blueprint(client_file)
 
 @app.route('/login', methods=['POST'])
 def login():
-    auth = request.form
+    auth = request.json
 
-    if not auth or not auth.get('email') or not auth.get('password'):
+    if not auth or not auth['email'] or not auth['password']:
         return make_response(
             'Could not verify',
             401,
@@ -33,7 +33,7 @@ def login():
         )
 
     user = {}
-    for item in f_sql_get(f"SELECT * FROM [user] WHERE email = '{auth.get('email')}'"):
+    for item in f_sql_get(f"SELECT * FROM [user] WHERE email = '{auth['email']}'"):
         user = {
             'id': item.id,
             'email': item.email,
@@ -47,7 +47,7 @@ def login():
             {'WWW-Authenticate': 'Basic realm ="User does not exist !!"'}
         )
 
-    if check_password_hash(user['password'], auth.get('password')):
+    if check_password_hash(user['password'], auth['password']):
         token = jwt.encode({
             'public_id': user['id'],
             'exp': datetime.utcnow() + timedelta(minutes=30)
