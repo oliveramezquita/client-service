@@ -241,23 +241,23 @@ Client Service is an application for managing clients that contains:
 ```
 npm install
 ```
-4.	Create our development environment with the following command
+3.	Create our development environment with the following command
 ```
 python -m venv venv
 ```
-6.	Activate the development environment
+4.	Activate the development environment
 ```
 source vnev/bin/activate
 ```
-8.	Install the requirements with the command
+5.	Install the requirements with the command
 ```
 pip install -r requirements.txt
 ```
-10.	Go into the backend folder
+6.	Go into the backend folder
 ```
 cd backend
 ```
-12.	Run flask
+7.	Run flask
 ```
 python -m flask run
 ```
@@ -273,7 +273,7 @@ npm install
 ```
 cd frontend
 ```
-12.	Run npm
+4.	Run npm
 ```
 npm start
 ```
