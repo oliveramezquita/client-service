@@ -30,8 +30,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run app.py
-        run: python backend/app.py
+      - name: Run app.py with nohup
+        run: nohup python backend/app.py &
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       
