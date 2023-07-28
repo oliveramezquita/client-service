@@ -287,3 +287,10 @@ The tests are carried out through Postman, the instructions are as follows
 ```
 File > Import
 ```
+
+
+## Production Deployment
+Deployments are made in Azure
+
+- [Frontend Web App](https://calm-mud-0ddc4ba10.3.azurestaticapps.net/)
+- Backend App - Pending  
