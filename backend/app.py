@@ -7,12 +7,15 @@ from entities.user import user_file
 from entities.city import city_file
 from entities.client import client_file
 from database import f_sql_get
+from prefix import PrefixMiddleware
 
 import jwt
+
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = config('SECRET_KEY')
+app.wsgi_app = PrefixMiddleware(app.wsgi_app, prefix='/api')
 
 CORS(app)
 
@@ -63,4 +66,4 @@ def login():
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug="True")
