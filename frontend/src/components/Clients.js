@@ -5,7 +5,7 @@ import { ExportToExcel } from './ExportToExcel'
 const API = process.env.REACT_APP_API;
 
 export const Clients = () => {
-    const { token, setToken } = useToken();
+    const { token } = useToken();
 
     const [name, setName] = useState('')
     const [code, setCode] = useState('')
@@ -108,6 +108,7 @@ export const Clients = () => {
     useEffect(() => {
         getClients();
         getCities();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const deleteClient = async (id) => {
@@ -176,6 +177,7 @@ export const Clients = () => {
                             value={code}
                             className="form-control"
                             placeholder="Código"
+                            maxLength={5}
                         />
                     </div>
                     <div className="form-group mb-3">
@@ -186,7 +188,7 @@ export const Clients = () => {
                             <select value={city} className="form-select" id="ciudad" onChange={e => setCity(e.target.value)}>
                                 <option>Selecciones una ciudad</option>
                                 {cities.map((item) => (
-                                    <option key={item.id} value={item.id} selected={city == item.id}>{item.name}</option>
+                                    <option key={item.id} value={item.id} selected={city === item.id}>{item.name}</option>
                                 ))}
                             </select>
                         </div>
@@ -204,9 +206,9 @@ export const Clients = () => {
                                 Filtrar por ciudad
                             </label>
                             <select value={filterCity} className="form-select" id="filtrar_ciudad" onChange={e => filterByCity(e.target.value)}>
-                                <option key={0} value={0} selected={filterCity == 0}>Todas</option>
+                                <option key={0} value={0} selected={filterCity === 0}>Todas</option>
                                 {cities.map((item) => (
-                                    <option key={item.id} value={item.id} selected={filterCity == item.id}>{item.name}</option>
+                                    <option key={item.id} value={item.id} selected={filterCity === item.id}>{item.name}</option>
                                 ))}
                             </select>
                         </div>

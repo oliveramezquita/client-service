@@ -4,7 +4,7 @@ import { useToken } from './useToken';
 const API = process.env.REACT_APP_API;
 
 export const Cities = () => {
-    const { token, setToken } = useToken();
+    const { token } = useToken();
 
     const [name, setName] = useState('')
     const [code, setCode] = useState('')
@@ -67,6 +67,7 @@ export const Cities = () => {
 
     useEffect(() => {
         getCities();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const deleteCity = async (id) => {
@@ -126,6 +127,7 @@ export const Cities = () => {
                             value={code}
                             className="form-control"
                             placeholder="Código"
+                            maxLength={3}
                         />
                     </div>
                     <button className="btn btn-primary btn-block">

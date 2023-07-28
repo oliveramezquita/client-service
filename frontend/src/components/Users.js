@@ -4,13 +4,13 @@ import { useToken } from './useToken';
 const API = process.env.REACT_APP_API;
 
 export const Users = () => {
-    const { token, setToken } = useToken();
+    const { token } = useToken();
 
     const [name, setName] = useState('')
     const [last_name, setLastName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [photo, setPhoto] = useState('')
+    const [photo] = useState('')
 
     const [editing, setEditing] = useState(false)
     const [id, setId] = useState('')
@@ -76,6 +76,7 @@ export const Users = () => {
 
     useEffect(() => {
         getUsers();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const deleteUser = async (id) => {
