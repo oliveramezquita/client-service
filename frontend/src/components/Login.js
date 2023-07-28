@@ -36,7 +36,9 @@ export const Login = ({ setToken }) => {
                     <div className="col-12 col-md-8 col-lg-6 col-xl-5">
                         <div className="card shadow-2-strong" style={{ borderRadius: "1rem" }}>
                             <div className="card-body p-5">
-                                <h3 className="mb-5 text-center">INICIAR SESIÓN</h3>
+                                <h1 className="text-center">ADMINISTRADOR DE CLIENTES</h1>
+                                <hr></hr>
+                                <h4 className="mb-3 text-center">INICIAR SESIÓN</h4>
                                 <form onSubmit={handleSubmit}>
                                     <div class="form-group">
                                         <label className="form-label mt-4" htmlFor="email">
@@ -79,6 +81,10 @@ export const Login = ({ setToken }) => {
                                         Entrar
                                     </button>
                                 </form>
+                                <br />
+                                <p>
+                                    <small>&copy; Realizado por Oliver Amézquita Morales</small>
+                                </p>
                             </div>
                         </div>
                     </div>
