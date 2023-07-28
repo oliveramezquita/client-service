@@ -1,8 +1,8 @@
 import pyodbc
 from decouple import config
 
-username = config('USERNAME')
-password = config('PASSWORD')
+username = config('DB_USERNAME')
+password = config('DB_PASSWORD')
 
 
 def cnxn():
