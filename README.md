@@ -13,11 +13,13 @@ Client Service is an application for managing clients that contains:
 ### Frameworks used
 - Backend: Flask [docs](https://flask.palletsprojects.com/en/2.1.x/)
 - Frontend: React [docs](https://es.react.dev/learn)
+
   
-### Database diagram
+## Database diagram
 ![App Screenshot](https://raw.githubusercontent.com/oliveramezquita/client-service/main/clientservice-db-diagram.png)
 
-### API Reference
+
+## API Reference
 
 #### Login to get API Token
 
@@ -228,3 +230,60 @@ Client Service is an application for managing clients that contains:
 | Parameter | Type     | Description                        |
 | :-------- | :------- | :--------------------------------- |
 | `id`      | `int`    | **Required**. Id of item to delete |
+
+
+## Deployment Instructions
+
+### Deployment instructions for the backend
+
+1.	Download this git repository
+2.	Install the dependencies with the command
+```
+npm install
+```
+4.	Create our development environment with the following command
+```
+python -m venv venv
+```
+6.	Activate the development environment
+```
+source vnev/bin/activate
+```
+8.	Install the requirements with the command
+```
+pip install -r requirements.txt
+```
+10.	Go into the backend folder
+```
+cd backend
+```
+12.	Run flask
+```
+python -m flask run
+```
+
+### Deployment instructions for the frontend
+
+1.	Download this git repository
+2.	Install the dependencies with the command
+```
+npm install
+```
+3.	Go into the frontend folder
+```
+cd frontend
+```
+12.	Run npm
+```
+npm start
+```
+
+
+## Tests
+The tests are carried out through Postman, the instructions are as follows
+
+1.	Download [Postman]([https://docs.python.org/3/](https://www.postman.com/downloads/))
+2.	Import the [collections json file](https://github.com/oliveramezquita/client-service/blob/main/Client-service.postman_collection.json)
+```
+File > Import
+```
