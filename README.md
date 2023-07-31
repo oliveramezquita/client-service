@@ -1,10 +1,24 @@
-# client-service
+client-service
+=============================
+
+
 Client Service is an application for managing clients that contains:
 
 - CRUD to manage database entities
 - Visualization for client management
 - Information export service through an Excel file
 - REST API for third-party consumption
+
+### Content:
+- [Programming Languages](#programming-languages)
+- [Frameworks used](#frameworks-used)
+- [Database diagram](#database-diagram)
+- [API Reference](#api-reference)
+- [Deployment Instructions](#deployment-instructions)
+- [Test](#tests)
+- [Production Deployment](#production-deployment)
+
+----------------------------------
 
 ### Programming Languages
 - Python [docs](https://docs.python.org/3/)
