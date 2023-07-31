@@ -223,7 +223,7 @@ export const Clients = () => {
                             <th>Nombre</th>
                             <th>Código</th>
                             <th>Ciudad</th>
-                            <th>...</th>
+                            <th>&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>

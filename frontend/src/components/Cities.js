@@ -141,7 +141,7 @@ export const Cities = () => {
                         <tr>
                             <th>Nombre</th>
                             <th>Código</th>
-                            <th>...</th>
+                            <th>&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>

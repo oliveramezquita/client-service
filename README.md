@@ -261,7 +261,7 @@ python3 -m venv venv
 ```
 4.	Activate the development environment
 ```
-source vnev/bin/activate
+source venv/bin/activate
 ```
 5.	Install the requirements with the command
 ```

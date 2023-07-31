@@ -171,7 +171,7 @@ export const Users = () => {
                             <th>Nombre</th>
                             <th>Apellidos</th>
                             <th>Correo electrónico</th>
-                            <th>...</th>
+                            <th>&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>

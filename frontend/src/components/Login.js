@@ -40,7 +40,7 @@ export const Login = ({ setToken }) => {
                                 <hr></hr>
                                 <h4 className="mb-3 text-center">INICIAR SESIÓN</h4>
                                 <form onSubmit={handleSubmit}>
-                                    <div class="form-group">
+                                    <div className="form-group">
                                         <label className="form-label mt-4" htmlFor="email">
                                             <b>Correo electrónico</b>
                                         </label>
@@ -52,7 +52,7 @@ export const Login = ({ setToken }) => {
                                             placeholder="Ingrese su correo electrónico"
                                         />
                                     </div>
-                                    <div class="form-group">
+                                    <div className="form-group">
                                         <label className="form-label mt-4" htmlFor="password">
                                             <b>Password</b>
                                         </label>
