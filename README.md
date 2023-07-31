@@ -237,13 +237,13 @@ Client Service is an application for managing clients that contains:
 ### Deployment instructions for the backend
 
 1.	Download this git repository
-2.	Install the dependencies with the command
+2.	Install the tool for the environment
 ```
-npm install
+pip3 install virtualenv
 ```
 3.	Create our development environment with the following command
 ```
-python -m venv venv
+python3 -m venv venv
 ```
 4.	Activate the development environment
 ```
@@ -251,7 +251,7 @@ source vnev/bin/activate
 ```
 5.	Install the requirements with the command
 ```
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 6.	Go into the backend folder
 ```
@@ -259,19 +259,19 @@ cd backend
 ```
 7.	Run flask
 ```
-python -m flask run
+python3 -m flask run
 ```
 
 ### Deployment instructions for the frontend
 
 1.	Download this git repository
-2.	Install the dependencies with the command
-```
-npm install
-```
-3.	Go into the frontend folder
+2.	Go into the frontend folder
 ```
 cd frontend
+```
+3.	Install the dependencies with the command
+```
+npm install
 ```
 4.	Run npm
 ```
